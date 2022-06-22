@@ -22,6 +22,14 @@ getUser(1)
   .then(commit => console.log(commit))
   .catch(error => console.log(error.message));
 
+// Async and Await
+async function func() {
+  const promise = await getUser(1);
+  console.log('This is the promise', promise);
+}
+
+func();
+
 
 function getUser(id) {
   return new Promise((resolve, reject) => {
@@ -56,6 +64,18 @@ function getProducts(dataBase, products) {
   })
 }
 
+const userData = new Promise((resolve, reject) => {
+  setTimeout(() => {{
+    // resolve({name: 'Felix', age: 23});
+    reject('Mensagen')
+  }}, 2000);
+});
+
+userData
+  .then(data => console.log(data))
+  .catch(error => {
+    console.log(error);
+  })
 
 
 /* 
