@@ -18,10 +18,14 @@ async function getCus() {
     const user = await getCustomer();
     const topMovies = await getTopMovies();
     const send = await sendEmail();
-  
-    console.log('User: ', user);
-    console.log('Top movies: ', topMovies);
-    console.log('Message: ', send);
+    
+    console.log('Customer', user);
+    if(user.isGold) {
+      console.log('Top movies', topMovies);
+      console.log(send);
+    } else {
+      console.log('Is not gold');
+    }
   } catch(error) {
     console.log(error.message);
   }
