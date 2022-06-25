@@ -13,6 +13,9 @@ const courseSchema = new mongoose.Schema({
   isPublished: Boolean
 });
 
+
+
+
 const Course = mongoose.model('Course', courseSchema);
 
 async function createCourse() {
@@ -29,10 +32,11 @@ async function createCourse() {
 
 async function getCourses() {
   const courses = await Course
-    .find({name: 'NodeJS'})
+    // .find({name: 'NodeJS'})
+    .find()
     .limit(10)
     .sort({name: -1})
-    .select({name: 1, author: 1})
+    .count();
   console.log(courses);
 }
 
