@@ -1,18 +1,23 @@
 const config =  require('config');
 const express = require('express');
-const home = require('./routes/home');
 const genres = require('./routes/genres');
-
+const customers = require('./routes/customers');
+const mongoose = require('mongoose');
 const app = express();
+
 app.use(express.json());
 app.use(express.urlencoded({extendend: true}));
 app.use(express.static('public'));
 
+mongoose
+  .connect('mongodb://localhost/vidly')
+  .then(() => console.log('Connected to mongoDB'))
+  .catch(error => console.log('Failed to connect'));
+
+
 // Routes
-app.use('/', home);
 app.use('/api/genres', genres);
-
-
+app.use('/api/customers', customers);
 
 
 
