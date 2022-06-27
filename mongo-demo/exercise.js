@@ -1,4 +1,10 @@
 const mongoose = require('mongoose');
+const router = require('express').Router();
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
 
 mongoose
   .connect('mongodb://localhost/mongo-exercises')
@@ -17,20 +23,19 @@ const courseSchema = new mongoose.Schema({
 
 const Course = mongoose.model('Course', courseSchema);
 
-async function addCourse() {
+app.post('/api/resister', async (req, res) => {
   const course = new Course({
-    name:"Angular Course",
-    author:"Mosh",
-    isPublished:true,
-    price: 15,
-    tags:["angular","frontend"],
-    date: "2018-01-24T21:56:15.353Z"
+    name:req.body.name,
+    author:req.body.author,
+    isPublished:req.body.isPublished,
+    price:req.body.price,
+    tags:req.body.tags,
+    date:req.body.date
   });
   
   const savedCourse = await course.save();
-  console.log(savedCourse);
-}
-
+  res.send(savedCourse);
+});
 
 async function getCourses() {
   const courses = await Course
@@ -55,4 +60,7 @@ async function updateCourse(id) {
   console.log(course);
 }
 
-updateCourse('62b77c44ab84008faf7de964');
+app.listen(3000, () => console.log('Listening on port 3000'));
+
+//updateCourse('62b77c44ab84008faf7de964');
+

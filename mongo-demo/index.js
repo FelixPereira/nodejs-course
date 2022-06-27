@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
+const router = require('./exercise');
+
 
 mongoose
-  .connect('mongodb://localhost/playground')
+  .connect('mongodb://localhost/playground2')
   .then(() => console.log('Connected to mongobd'))
   .catch(error => console.log('Could not connect to mongo db'));
+
+app.use('/api/exercise', router);
 
 const courseSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -62,5 +66,7 @@ async function getCourses(id) {
   console.log(courses[0].price);
 }
 
-getCourses('62b8442714cdf461b80fe0ce');
+// getCourses('62b8442714cdf461b80fe0ce');
 // createCourse();
+
+
