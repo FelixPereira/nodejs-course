@@ -1,4 +1,4 @@
-const {Customer, validate} = require('./models/customers');
+const {Customer} = require('../models/customers');
 const express = require('express');
 const router = express.Router();
 
@@ -7,10 +7,7 @@ router.get('/', async (req, res) => {
   res.send(customers);
 });
 
-router.post('/', async (req, res) => {
-  const {error} = validate(req.body);
-  if(error) return res.status(404).send(error.details[0].message);
-
+router.post('/register', async (req, res) => {
   let customer = new Customer.model({
     name: req.body.name,
     phone: req.body.phone,
@@ -22,9 +19,6 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  const {error} = validate(req.body);
-  if(error) return res.status(404).send(error.details[0].message);
-
   const id = parseInt(req.params.id);
 
   const customer = await Customer.findById(id);

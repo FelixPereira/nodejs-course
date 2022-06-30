@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Genre, validate } = require('./models/genres');
+const { Genre } = require('../models/genres');
 
 
 router.get('/', async (req, res) => {
@@ -13,9 +13,6 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const {error} = validate(req.body);
-  if(error) return res.status(404).send(error.details[0].message);
-  
   const genre = new Genre.model({
     name: req.body.name
   });
@@ -29,9 +26,6 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  const {error} = validate(req.body);
-  if(error) return res.status(404).send(error.details[0].message);
-  
   const id = parseInt(req.params.id);
 
   try {
