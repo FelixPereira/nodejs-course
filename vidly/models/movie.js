@@ -40,4 +40,5 @@ function validateGenre(genre) {
 }; 
 
 module.exports.Movie = mongoose.model('Movie', movieSchema);
+module.exports.movieSchema = movieSchema;
 module.exports.validate = validateGenre;

@@ -2,6 +2,8 @@ const config =  require('config');
 const express = require('express');
 const genres = require('./routes/genre');
 const customers = require('./routes/customer');
+const movies = require('./routes/movie');
+const rentals = require('./routes/rental');
 const mongoose = require('mongoose');
 const app = express();
 
@@ -18,6 +20,8 @@ mongoose
 // Routes
 app.use('/api/genres', genres);
 app.use('/api/customers', customers);
+app.use('/api/movies', movies);
+app.use('/api/rentals', rentals);
 
 
 const PORT = process.env.PORT || 3000;

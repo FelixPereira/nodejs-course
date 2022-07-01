@@ -30,10 +30,20 @@ router.post('/add-movie', async (req, res) => {
 });
 
 router.put('/movieId', async (req, res) => {
+  const error = validate(req.body);
+  if(error) res.status(400).send('Invalida data');
+
   const id = req.params.movieId;
+  const genre = await Genre.findById(req.body.genreId);
+  if(!genre) res.status(404).send('Genre does not exist');
+
   const movie = await Movie.findByIdAndUpdate(id, {
     $set:{
       title: req.body.title,
+      genre: {
+        _id: genre._id,
+        name: genre.name
+      },
       numberInStock: req.body.numberInStock,
       dailyRentalRate: req.body.dailyRentalRate
     }
