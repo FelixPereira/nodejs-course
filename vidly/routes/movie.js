@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {Movie, validate} = require('../models/movie');
-const {Genre} = require('../models');
+const {Genre} = require('../models/genre');
 
 router.get('/', async (req, res) => {
   const movies = await Movie.find().sort('name');
@@ -9,8 +9,8 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/add-movie', async (req, res) => {
-  const error = validate(req.body);
-  if(error) res.status(400).send('Invalida data');
+  const {error} = validate(req.body);
+  if(error) return res.status(400).send(error.details[0].message);
 
   const genre = await Genre.findById(req.body.genreId);
   if(!genre) res.status(404).send('Genre does not exist');
@@ -63,3 +63,5 @@ router.get('/movieId', async (req, res) => {
   const movie = await Movie.findById(id);
   res.send(movie);
 });
+
+module.exports = router;

@@ -1,8 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const {Rental, validate} = require('../models');
+// const Fawn = require('fawn');
+const mongoose = require('mongoose');
+
+const {Rental, validate} = require('../models/rental');
 const {Customer} = require('../models/customer');
 const {Movie} = require('../models/movie');
+
+// Fawn.init(mongoose);
 
 router.get('/', async (req, res) => {
   const rentals = await Rental.find().sort('-dateOut');
@@ -10,7 +15,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const error = validate(req.body);
+  const {error} = validate(req.body);
   if(error) res.status(400).send(error.details[0].message);
 
   const customer = await Customer.findById(req.body.customerId);
@@ -27,7 +32,7 @@ router.post('/', async (req, res) => {
     customer: {
       _id: customer._id,
       name: customer.name,
-      phone: customer.phone,
+      telephone: customer.telephone,
     }
   });
 

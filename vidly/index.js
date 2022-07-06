@@ -1,11 +1,12 @@
-const config =  require('config');
 const express = require('express');
+const mongoose = require('mongoose');
+const app = express();
+
 const genres = require('./routes/genre');
 const customers = require('./routes/customer');
 const movies = require('./routes/movie');
 const rentals = require('./routes/rental');
-const mongoose = require('mongoose');
-const app = express();
+
 
 app.use(express.json());
 app.use(express.urlencoded({extendend: true}));
@@ -24,7 +25,7 @@ app.use('/api/movies', movies);
 app.use('/api/rentals', rentals);
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);

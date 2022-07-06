@@ -11,7 +11,7 @@ const customerSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  phone: {
+  telephone: {
     type: String,
     required: true,
     minlength: 3,

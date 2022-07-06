@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const genre = new Genre.model({
+  const genre = new Genre({
     name: req.body.name
   });
 

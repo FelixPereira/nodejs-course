@@ -1,6 +1,6 @@
-const {Customer} = require('../models/customer');
 const express = require('express');
 const router = express.Router();
+const {Customer} = require('../models/customer');
 
 router.get('/', async (req, res) => {
   const customers = await Customer.find().sort('name');
@@ -8,9 +8,9 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-  let customer = new Customer.model({
+  let customer = new Customer({
     name: req.body.name,
-    phone: req.body.phone,
+    telephone: req.body.telephone,
     isGold: req.body.isGold
   });
 
