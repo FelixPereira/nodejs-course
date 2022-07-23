@@ -7,17 +7,8 @@ const authAdmin = require('../middleware/authAdmin');
 
 const asyncMiddleware = require('../middleware/async');
 
-const promise = new Promise((res, rej) => {
-  setTimeout(() => {
-    // res('RESOLVED');
-    rej('REJECTED');
-  }, 2);
-});
 
-router.get('/', async (req, res, next) => {
-  const p = await promise;
-  console.log(p);
-
+router.get('/', async (req, res) => {
   const genres = await Genre.find().sort('name');
   res.send(genres);
 });
