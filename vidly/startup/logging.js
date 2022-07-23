@@ -1,6 +1,10 @@
 const winston = require('winston');
-require('winston-mongodb');
+require('express-async-errors');
 
-process.on('uncaughtException', ex => {
-  console.log('ERROR: ', ex.message);
-});
+module.exports = function() {
+  winston.add(new winston.transports.File({filename: 'logExceptions.log'}));
+  winston.exceptions.handle(
+    new winston.transports.File({filename: 'logExceptions.log'}),
+    new winston.transports.Console({colorize: true, prettyPrint: true})
+  );
+};

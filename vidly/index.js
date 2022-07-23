@@ -1,17 +1,17 @@
 const express = require('express');
-require('express-async-errors');
-
+const winston = require('winston');
 const app = express();
 const routes = require('./startup/routes');
 const dbConnect = require('./startup/dbConnect');
-const logErrors = require('./logging');
+const logErrors = require('./startup/logging');
+const config = require('./startup/config');
 
-dbConnect();
-routes(app);
 logErrors();
+routes(app);
+dbConnect();
+config();
 
 const PORT = process.env.PORT || 5000;
-
 app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+  winston.info(`Listening on port ${PORT}...`);
 });
